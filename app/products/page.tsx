@@ -91,66 +91,7 @@ export default function ProductsPage() {
         </ul>
       </nav>
 
-      {/* CART SIDEBAR */}
-      {showCart && (
-        <div className="cart-overlay" onClick={() => setShowCart(false)}>
-          <div className="cart-sidebar" onClick={e => e.stopPropagation()}>
-            <div className="cart-header">
-              <h3>Your Bag ({cart.reduce((a,b)=>a+b.quantity,0)})</h3>
-              <button className="cart-close" onClick={() => setShowCart(false)}>✕</button>
-            </div>
-            
-            <div className="cart-items">
-              {cart.length === 0 ? (
-                <div className="empty-cart">
-                  <span style={{fontSize:'3rem'}}>🛍️</span>
-                  <p>Your bag is empty</p>
-                  <button className="btn btn-primary" onClick={() => setShowCart(false)}>Start Shopping</button>
-                </div>
-              ) : (
-                cart.map((item, i) => (
-                  <div key={i} className="cart-item">
-                    <img src={item.product.image_url} alt={item.product.name} />
-                    <div className="cart-item-info">
-                      <div className="cart-item-name">{item.product.name}</div>
-                      {item.shade && (
-                        <div className="cart-item-shade">
-                          <span style={{background:item.shade.color_code}}></span>
-                          {item.shade.name}
-                        </div>
-                      )}
-                      <div className="cart-item-price">AED {item.product.price}</div>
-                      <div className="cart-item-actions">
-                        <div className="qty-picker">
-                          <button onClick={() => updateQuantity(i, -1)}>−</button>
-                          <span>{item.quantity}</span>
-                          <button onClick={() => updateQuantity(i, 1)}>+</button>
-                        </div>
-                        <button className="cart-item-remove" onClick={() => removeFromCart(i)}>Remove</button>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-            
-            {cart.length > 0 && (
-              <div className="cart-footer">
-                <div className="cart-total">
-                  <span>Subtotal</span>
-                  <span>AED {cartTotal.toFixed(2)}</span>
-                </div>
-                <p className="cart-delivery-info">
-                  {cartTotal >= 150 ? '✅ Free Delivery Applied!' : `🚚 AED ${150 - cartTotal} more for FREE delivery`}
-                </p>
-                <button className="btn btn-primary btn-full" onClick={() => { setShowCart(false); setShowOrderForm(true); openProduct(cart[0].product); }}>
-                  Checkout via WhatsApp →
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+
 
       <div className="delivery-banner">
         🚚 Free delivery AED 150+ &nbsp;|&nbsp; ⚡ 24hr delivery &nbsp;|&nbsp; 🎁 Free gift &nbsp;|&nbsp; 💰 Cash on delivery &nbsp;|&nbsp; 🏦 Bank transfer
