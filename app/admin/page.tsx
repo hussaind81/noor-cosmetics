@@ -323,12 +323,12 @@ export default function AdminPage() {
                     {p.original_price && <div style={{fontSize:'0.75rem',color:'#9ca3af',textDecoration:'line-through'}}>AED {Number(p.original_price).toFixed(0)}</div>}
                   </td>
                   <td>
-                    {p.shades ? (
+                    {p.shades_list && p.shades_list.length > 0 ? (
                       <div style={{display:'flex',gap:3,flexWrap:'wrap',maxWidth:80}}>
-                        {p.shades.split(',').slice(0,4).map(s=>(
-                          <div key={s} title={s.trim()} style={{width:14,height:14,borderRadius:'50%',background:SHADE_COLORS[s.trim()]||'#e11d48',border:'1px solid rgba(0,0,0,0.1)'}}></div>
+                        {p.shades_list.slice(0,4).map(s=>(
+                          <div key={s.id || s.name} title={s.name} style={{width:14,height:14,borderRadius:'50%',background:s.color_code||'#e11d48',border:'1px solid rgba(0,0,0,0.1)'}}></div>
                         ))}
-                        {p.shades.split(',').length > 4 && <span style={{fontSize:'0.7rem',color:'#9ca3af'}}>+{p.shades.split(',').length-4}</span>}
+                        {p.shades_list.length > 4 && <span style={{fontSize:'0.7rem',color:'#9ca3af'}}>+{p.shades_list.length-4}</span>}
                       </div>
                     ) : <span style={{color:'#d1d5db',fontSize:'0.8rem'}}>—</span>}
                   </td>
