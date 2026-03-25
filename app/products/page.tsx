@@ -165,16 +165,16 @@ export default function ProductsPage() {
       {/* PRODUCT DETAIL MODAL */}
       {selected && (
         <div className="modal-overlay" onClick={closeProduct}>
-          <div className="modal-card" onClick={e => e.stopPropagation()} style={{maxWidth:'800px',display:'grid',gridTemplateColumns:window.innerWidth > 768 ? '1fr 1fr' : '1fr'}}>
+          <div className="modal-card" onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={closeProduct}>✕</button>
 
             {/* GALLERY SECTION */}
-            <div className="modal-gallery-wrap" style={{padding:'1rem'}}>
+            <div className="modal-gallery-wrap">
               <div className="gallery-main">
                 <img src={activeImage || selected.image_url} alt={selected.name} />
               </div>
               {(selected.images && selected.images.length > 0) && (
-                <div className="gallery-thumbs" style={{marginTop:'0.75rem'}}>
+                <div className="gallery-thumbs">
                   <div className={`thumb ${activeImage === selected.image_url ? 'active' : ''}`} onClick={() => setActiveImage(selected.image_url)}>
                     <img src={selected.image_url} alt="main" />
                   </div>
@@ -188,25 +188,25 @@ export default function ProductsPage() {
             </div>
 
             {/* INFO SECTION */}
-            <div className="modal-info" style={{padding:'2rem',background:'white',maxHeight:'90vh',overflowY:'auto'}}>
+            <div className="modal-info">
               <div className="product-badges">
                 {selected.badge && <span className={`badge-ui badge-${selected.badge.toLowerCase()}`}>{selected.badge}</span>}
                 {selected.original_price && <span className="badge-ui badge-sale">Save {Math.round((1 - selected.price / selected.original_price) * 100)}%</span>}
               </div>
               
               <div className="product-category">{selected.category}</div>
-              <h2 className="modal-title" style={{fontSize:'1.8rem',marginBottom:'0.5rem'}}>{selected.name}</h2>
+              <h2 className="modal-title">{selected.name}</h2>
               
-              <div className="price-tag" style={{marginBottom:'1.5rem'}}>
-                <span className="price-now" style={{fontSize:'2rem'}}>AED {Number(selected.price).toFixed(0)}</span>
-                {selected.original_price && <span className="price-old" style={{fontSize:'1.2rem'}}>AED {Number(selected.original_price).toFixed(0)}</span>}
+              <div className="price-tag">
+                <span className="price-now">AED {Number(selected.price).toFixed(0)}</span>
+                {selected.original_price && <span className="price-old">AED {Number(selected.original_price).toFixed(0)}</span>}
               </div>
 
-              <p className="modal-desc" style={{marginBottom:'1.5rem',color:'var(--gray)',lineHeight:'1.8'}}>{selected.description}</p>
+              <p className="modal-desc">{selected.description}</p>
 
               {/* SHADE SELECTOR */}
               {selected.shades_list && selected.shades_list.length > 0 && (
-                <div className="shade-picker" style={{marginBottom:'2rem'}}>
+                <div className="shade-picker">
                   <p className="shade-label">Select Color/Shade: <strong>{selectedShade?.name}</strong></p>
                   <div className="shade-selector">
                     {selected.shades_list.map(s => (
@@ -219,9 +219,14 @@ export default function ProductsPage() {
                 </div>
               )}
 
+              {/* ACTIONS */}
+              <div className="modal-actions-mobile">
+                <a href={getWhatsAppOrder(selected, selectedShade)} target="_blank" className="btn btn-primary btn-full">
+                  Order on WhatsApp
+                </a>
+              </div>
 
-
-              <div className="modal-trust" style={{marginTop:'2rem',borderTop:'1px solid #eee',paddingTop:'1.5rem'}}>
+              <div className="modal-trust">
                 <span>🚚 Free delivery AED 150+</span>
                 <span>🎁 Free gift included</span>
                 <span>⚡ 24hr delivery UAE</span>

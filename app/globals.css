@@ -196,11 +196,17 @@ body {
 .order-input:focus { border-color: var(--rose); }
 
 /* DESKTOP MODAL - centered dialog */
-@media (min-width: 640px) {
-  .modal-overlay { align-items: center; padding: 1rem; }
-  .modal-card { border-radius: 24px; max-width: 500px; max-height: 90vh; }
-  .modal-image { height: 300px; border-radius: 24px 24px 0 0; }
-  .modal-info { padding: 1.75rem 1.75rem 2rem; }
+@media (min-width: 769px) {
+  .modal-overlay { align-items: center; padding: 2rem; }
+  .modal-card { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    max-width: 900px; 
+    border-radius: 24px; 
+    overflow: hidden;
+  }
+  .modal-gallery-wrap { border-right: 1px solid #f0f0f0; }
+  .gallery-main { height: 450px !important; }
 }
 
 /* RESPONSIVE */
@@ -208,6 +214,33 @@ body {
   .nav { padding: 0.75rem 1rem; }
   .nav-links { gap: 0.5rem; }
   .nav-links a { font-size: 0.78rem; }
+  
+  /* Lookbook Mobile */
+  .nav-lookbook { padding: 1rem; }
+  .nav-brand-lookbook { font-size: 1.4rem; }
+  .nav-lookbook-links { gap: 1rem; }
+  .nav-lookbook-links a:not(.btn-outline-lookbook) { display: none; }
+  .btn-outline-lookbook { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+
+  .lookbook-main { padding: 0 1rem; }
+  .lookbook-hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0; text-align: center; }
+  .lookbook-hero-text { max-width: 100%; margin: 0 auto; }
+  .lookbook-subtitle { max-width: 100%; font-size: 1rem; margin-bottom: 2rem; }
+  .lookbook-hero-image { height: 400px; order: -1; }
+
+  .lookbook-grid { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem 0; }
+  .card-lookbook-1, .card-lookbook-2, .card-lookbook-3, .card-lookbook-4, .card-lookbook-5, .card-lookbook-6 { 
+    grid-column: span 2; 
+    height: 350px; 
+  }
+  /* Show some as half width on mobile for variety if needed, but let's stick to full width for elegance */
+  .lookbook-card-info h3 { font-size: 1.2rem; }
+
+  .lookbook-footer { padding: 4rem 1rem; }
+  .lookbook-footer h2 { font-size: 1.8rem; }
+  .lookbook-footer-btns { flex-direction: column; gap: 0.75rem; }
+  .btn-whatsapp-lookbook, .btn-instagram-lookbook { width: 100%; }
+
   .hero { grid-template-columns: 1fr; padding: 2.5rem 1.25rem; text-align: center; }
   .hero-image-wrap { display: none; }
   .hero-btns { justify-content: center; flex-direction: column; align-items: center; }
@@ -220,16 +253,39 @@ body {
   .admin-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
   .cat-pills { gap: 0.35rem; }
   .cat-pill { font-size: 0.74rem; padding: 0.35rem 0.75rem; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-  .product-image { height: 160px; }
-  .product-info { padding: 0.85rem; }
-  .product-name { font-size: 0.86rem; }
-  .product-price { font-size: 1rem; }
+  
+  /* Products Grid Mobile */
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .product-image { height: 180px; }
+  .product-info { padding: 0.75rem; }
+  .product-name { font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .product-category { font-size: 0.65rem; letter-spacing: 1px; }
+  .price-now { font-size: 1.1rem; }
+  .price-old { font-size: 0.85rem; }
+  .product-footer { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  
   .product-contact { gap: 0.3rem; }
   .btn-whatsapp, .btn-instagram-sm { font-size: 0.7rem; padding: 0.5rem 0.25rem; border-radius: 6px; }
   .search-sort-bar { flex-direction: column; gap: 0.75rem; }
   .sort-select, .search-input { width: 100%; }
   .delivery-banner { font-size: 0.72rem; white-space: normal; line-height: 1.7; padding: 0.5rem 1rem; }
+
+  /* Modal Mobile Fixes */
+  .modal-card { 
+    grid-template-columns: 1fr !important; 
+    max-height: 95vh;
+    border-radius: 20px 20px 0 0 !important;
+  }
+  .modal-gallery-wrap { padding: 0.75rem !important; }
+  .gallery-main { height: 300px !important; }
+  .modal-info { padding: 1.25rem !important; }
+  .modal-title { font-size: 1.5rem !important; }
+  .price-now { font-size: 1.6rem !important; }
+  .modal-desc { font-size: 0.9rem !important; margin-bottom: 1rem !important; }
+  .shade-selector { gap: 0.5rem !important; }
+  .shade-circle { width: 28px !important; height: 28px !important; }
+  .modal-trust { font-size: 0.8rem; flex-direction: column; gap: 0.5rem; }
+  .modal-trust span { display: block; width: 100%; text-align: center; }
 }
 
 .lookbook-footer { background: #f7f7f7; padding: 6rem 2rem; text-align: center; }
