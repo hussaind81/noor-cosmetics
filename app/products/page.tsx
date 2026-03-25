@@ -9,33 +9,20 @@ type Product = {
   shades_list?: { id: number, name: string, color_code: string }[];
 };
 
-type CartItem = {
-  product: Product;
-  shade?: { name: string, color_code: string };
-  quantity: number;
-};
-
 const CATS = ['All','Lipsticks','Foundation','Eyes','Face','Skincare','Nails','Perfume','General'];
 const PHONE = '971547491672';
 const INSTAGRAM = 'noor_cosmetics53';
 
-function getWhatsAppOrder(items: CartItem[], name?: string, address?: string) {
-  const total = items.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+function getWhatsAppOrder(product: Product, shade?: { name: string, color_code: string } | null) {
   const lines = [
-    `Hi Noor Cosmetics! 🌸`,
+    `Hi Noor Cosmetics! I'm interested in this product:`,
     ``,
-    `I'd like to place an order:`,
-    ...items.map(item => `- *${item.product.name}* ${item.shade ? `(Shade: ${item.shade.name})` : ''} x${item.quantity} = AED ${item.product.price * item.quantity}`),
+    `*${product.name}*`,
+    shade ? `Shade: *${shade.name}*` : '',
+    `Price: AED ${product.price}`,
     ``,
-    `*Total: AED ${total}*`,
-    name ? `Name: ${name}` : '',
-    address ? `Address: ${address}` : '',
-    ``,
-    `_Free gift included_ 🎁`,
-    total >= 150 ? `_Free delivery applied!_ 🚚` : `_Delivery fee applies (Orders below AED 150)_`,
-    ``,
-    `Please confirm my order. Thank you!`,
-  ].filter(l => l !== null && l !== undefined);
+    `Please let me know about availability. Thank you!`,
+  ];
   return `https://wa.me/${PHONE}?text=${encodeURIComponent(lines.join('\n'))}`;
 }
 
@@ -49,52 +36,12 @@ export default function ProductsPage() {
   const [selected, setSelected] = useState<Product | null>(null);
   const [selectedShade, setSelectedShade] = useState<{ name: string, color_code: string } | null>(null);
   const [activeImage, setActiveImage] = useState('');
-  const [orderName, setOrderName] = useState('');
-  const [orderAddress, setOrderAddress] = useState('');
-  const [showOrderForm, setShowOrderForm] = useState(false);
-  const [wishlist, setWishlist] = useState<number[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const catParam = params.get('cat');
     if (catParam) setCat(catParam);
-    
-    const savedWishlist = localStorage.getItem('noor_wishlist');
-    if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
-    
-    const savedCart = localStorage.getItem('noor_cart');
-    if (savedCart) setCart(JSON.parse(savedCart));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('noor_cart', JSON.stringify(cart));
-  }, [cart]);
-
-  const addToCart = (product: Product, shade?: { name: string, color_code: string } | null) => {
-    const existingIndex = cart.findIndex(item => item.product.id === product.id && item.shade?.name === shade?.name);
-    if (existingIndex > -1) {
-      const updated = [...cart];
-      updated[existingIndex].quantity += 1;
-      setCart(updated);
-    } else {
-      setCart([...cart, { product, shade: shade || undefined, quantity: 1 }]);
-    }
-    setShowCart(true);
-  };
-
-  const removeFromCart = (index: number) => {
-    setCart(cart.filter((_, i) => i !== index));
-  };
-
-  const updateQuantity = (index: number, delta: number) => {
-    const updated = [...cart];
-    updated[index].quantity = Math.max(1, updated[index].quantity + delta);
-    setCart(updated);
-  };
-
-  const cartTotal = cart.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
 
   useEffect(() => {
     fetch('/api/products')
@@ -113,18 +60,10 @@ export default function ProductsPage() {
     setFiltered(r);
   }, [search, cat, sort, all]);
 
-  const toggleWishlist = (id: number) => {
-    const updated = wishlist.includes(id) ? wishlist.filter(w => w !== id) : [...wishlist, id];
-    setWishlist(updated);
-    localStorage.setItem('noor_wishlist', JSON.stringify(updated));
-  };
-
   const openProduct = (p: Product) => {
     setSelected(p);
     setSelectedShade(p.shades_list?.length ? p.shades_list[0] : null);
     setActiveImage(p.image_url);
-    setShowOrderForm(false);
-    setOrderName(''); setOrderAddress('');
     document.body.style.overflow = 'hidden';
   };
 

@@ -38,30 +38,53 @@ body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(
 /* DELIVERY BANNER */
 .delivery-banner { background: linear-gradient(90deg, var(--rose-dark), var(--rose), #f43f5e); color: white; text-align: center; padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.3px; }
 
-/* NEW HOMEPAGE UI */
-.hero-new { background: linear-gradient(135deg, #fff1f2, #fef9c3); padding: 8rem 2rem; text-align: center; }
-.hero-new-content { max-width: 800px; margin: 0 auto; }
-.hero-new-title { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; color: var(--dark); line-height: 1.1; letter-spacing: -2px; }
-.hero-new-subtitle { font-size: 1.2rem; color: var(--gray); max-width: 600px; margin: 1.5rem auto 2.5rem; }
-.hero-new-btns { display: flex; justify-content: center; gap: 1rem; }
+/* LOOKBOOK UI */
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --color-bg: #FDFCFB;
+  --color-text: #1a1a1a;
+  --color-brand: #D4AF37; /* Gold */
+  --color-accent: #333;
+}
 
-.featured-section { padding: 6rem 2rem; background: #fff; }
-.featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1400px; margin: 3rem auto 0; }
-.featured-card { position: relative; border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.3s ease; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
-.featured-card:hover { transform: translateY(-10px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
-.featured-img { width: 100%; height: 350px; object-fit: cover; }
-.featured-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white; }
-.featured-category { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
-.featured-name { font-size: 1.4rem; font-weight: 700; margin: 0.25rem 0 0.5rem; }
-.featured-price { font-size: 1.1rem; font-weight: 600; color: var(--rose-light); }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
 
-.cta-section { background: var(--dark); color: white; padding: 6rem 2rem; text-align: center; }
-.cta-content { max-width: 700px; margin: 0 auto; }
-.cta-content h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
-.cta-content p { font-size: 1.1rem; color: #d1d5db; margin-bottom: 2rem; }
-.cta-btns { display: flex; justify-content: center; gap: 1rem; }
-.btn-whatsapp-solid { background: #25D366; color: white; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; }
-.btn-instagram-solid { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; }
+.nav-lookbook { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; background: rgba(253, 252, 251, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #f0f0f0; }
+.nav-brand-lookbook { font-family: var(--font-serif); font-weight: 700; font-size: 1.8rem; text-decoration: none; color: var(--color-text); letter-spacing: 1px; }
+.nav-lookbook-links { display: flex; align-items: center; gap: 2rem; }
+.nav-lookbook-links a { text-decoration: none; color: var(--color-text); font-weight: 500; transition: color 0.2s; }
+.nav-lookbook-links a:hover { color: var(--color-brand); }
+.btn-outline-lookbook { border: 1px solid var(--color-accent); padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; }
+
+.lookbook-main { padding: 0 3rem; }
+.lookbook-hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; padding: 5rem 0; }
+.lookbook-hero-text { max-width: 500px; }
+.lookbook-title { font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1.1; font-weight: 600; margin-bottom: 1.5rem; }
+.lookbook-subtitle { font-size: 1.1rem; color: #666; max-width: 450px; margin-bottom: 2.5rem; line-height: 1.7; }
+.btn-primary-lookbook { background: var(--color-accent); color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; }
+
+.lookbook-hero-image { height: 600px; border-radius: 16px; overflow: hidden; }
+.lookbook-hero-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.lookbook-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 5rem 0; }
+.lookbook-card { text-decoration: none; color: inherit; position: relative; overflow: hidden; border-radius: 16px; }
+.lookbook-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.lookbook-card:hover .lookbook-card-img { transform: scale(1.05); }
+.lookbook-card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; }
+.lookbook-card-info h3 { font-family: var(--font-serif); font-size: 1.5rem; margin: 0 0 0.25rem; }
+.lookbook-card-info span { font-size: 0.9rem; opacity: 0.8; }
+
+.card-lookbook-1 { grid-column: 1 / 3; height: 500px; }
+.card-lookbook-2 { grid-column: 3 / 4; height: 500px; }
+.card-lookbook-3 { grid-column: 1 / 2; height: 500px; }
+.card-lookbook-4 { grid-column: 2 / 4; height: 500px; }
+.card-lookbook-5 { grid-column: 1 / 3; height: 500px; }
+.card-lookbook-6 { grid-column: 3 / 4; height: 500px; }
 
 /* CATEGORY PILLS */
 .cat-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
@@ -209,14 +232,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(
   .delivery-banner { font-size: 0.72rem; white-space: normal; line-height: 1.7; padding: 0.5rem 1rem; }
 }
 
-/* FOOTER */
-.footer-new { background: #111827; color: #9ca3af; padding: 4rem 2rem; }
-.footer-new-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.footer-brand { font-size: 1.5rem; font-weight: 700; color: white; }
-.footer-links { display: flex; gap: 2rem; }
-.footer-links a { color: #9ca3af; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-.footer-links a:hover { color: white; }
-.footer-bottom { text-align: center; margin-top: 3rem; font-size: 0.9rem; border-top: 1px solid #374151; padding-top: 2rem; }
+.lookbook-footer { background: #f7f7f7; padding: 6rem 2rem; text-align: center; }
+.lookbook-footer h2 { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 1rem; }
+.lookbook-footer p { font-size: 1.1rem; color: #666; margin-bottom: 2rem; }
+.lookbook-footer-btns { display: flex; justify-content: center; gap: 1rem; }
+.btn-whatsapp-lookbook { background: #25D366; color: white; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; }
+.btn-instagram-lookbook { background: #333; color: white; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; }
+.lookbook-footer-bottom { margin-top: 4rem; color: #999; font-size: 0.9rem; }
 
 /* EMPTY STATE */
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--gray); }
