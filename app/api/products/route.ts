@@ -2,12 +2,19 @@ export const runtime = 'edge';
 import { NextRequest, NextResponse } from 'next/server';
 
 function getDB(req: NextRequest): any {
-  // Try to get from Cloudflare Pages context
+  console.log('Attempting to get DB binding...');
   const env = (process.env as any);
-  if (env.DB) return env.DB;
-  
-  // Fallback for different Cloudflare environments
-  return (globalThis as any).DB || null;
+  if (env.DB) {
+    console.log('Found DB binding in process.env.DB');
+    return env.DB;
+  }
+  console.log('DB not found in process.env. Trying globalThis.');
+  if ((globalThis as any).DB) {
+    console.log('Found DB binding in globalThis.DB');
+    return (globalThis as any).DB;
+  }
+  console.error('CRITICAL: D1 Database binding not found.');
+  return null;
 }
 
 export async function GET(request: NextRequest) {
@@ -16,7 +23,10 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id');
     const db = getDB(request);
     
-    if (!db) return NextResponse.json({ success: true, products: getMock(), source: 'mock' });
+    if (!db) {
+      console.error('Database connection failed: DB object is null.');
+      return NextResponse.json({ success: false, error: 'Database not connected', source: 'error' });
+    }
 
     if (id) {
       const product = await db.prepare('SELECT * FROM products WHERE id=?').bind(id).first();
@@ -33,14 +43,12 @@ export async function GET(request: NextRequest) {
 
     const { results: products } = await db.prepare('SELECT * FROM products ORDER BY id DESC').all();
     
-    // For list view, we might want to include the primary image and shades count
     const enrichedProducts = await Promise.all(products.map(async (p: any) => {
       try {
         const images = await db.prepare('SELECT * FROM product_images WHERE product_id=?').bind(p.id).all();
         const shades = await db.prepare('SELECT * FROM product_shades WHERE product_id=?').bind(p.id).all();
         return { ...p, images: images.results || [], shades_list: shades.results || [] };
       } catch (e) {
-        // Fallback if new tables don't exist yet
         return { ...p, images: [], shades_list: [] };
       }
     }));
@@ -48,7 +56,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: true, products: enrichedProducts, source: 'database' });
   } catch (err) {
     console.error('API GET Error:', err);
-    return NextResponse.json({ success: true, products: getMock(), source: 'mock' });
+    return NextResponse.json({ success: false, error: (err as Error).message, source: 'error' });
   }
 }
 
