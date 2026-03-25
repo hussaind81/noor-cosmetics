@@ -83,16 +83,11 @@ export default function ProductsPage() {
   return (
     <>
       <nav className="nav">
-        <a href="/" className="nav-brand"><span className="nav-logo-n">N</span>OOR</a>
+        <a href="/" className="nav-brand">NOOR</a>
         <ul className="nav-links">
-          <li><a href="/products">Shop</a></li>
+          <li><a href="/products">Catalogue</a></li>
           <li><a href="/">Home</a></li>
-          <li style={{position:'relative'}}>
-            <button className="nav-cart-btn" onClick={() => setShowCart(true)}>
-              🛒 <span className="cart-count">{cart.reduce((a,b)=>a+b.quantity,0)}</span>
-            </button>
-          </li>
-          <li><a href={`https://wa.me/${PHONE}`} target="_blank" className="nav-whatsapp">💬 Order</a></li>
+          <li><a href={`https://wa.me/${PHONE}`} target="_blank" className="nav-whatsapp">Order Now</a></li>
         </ul>
       </nav>
 
