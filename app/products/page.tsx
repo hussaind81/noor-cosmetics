@@ -125,7 +125,7 @@ export default function ProductsPage() {
                 <div key={p.id} className="product-card">
                   <div className="product-image" onClick={() => openProduct(p)} style={{ cursor: 'pointer' }}>
                     {p.image_url
-                      ? <img src={p.image_url} alt={p.name} onError={e => { (e.target as HTMLImageElement).parentElement!.innerHTML = '<span style="font-size:3rem">💄</span>'; }} />
+                      ? <img src={p.image_url} alt={p.name} onError={e => { (e.target as HTMLImageElement).parentElement!.innerHTML = '<span>💄</span>'; }} />
                       : <span>💄</span>
                     }
                     {p.badge && <div className={`badge-ui badge-${p.badge.toLowerCase()}`} style={{position:'absolute',top:'0.75rem',left:'0.75rem'}}>{p.badge}</div>}
@@ -239,19 +239,27 @@ export default function ProductsPage() {
       <footer>
         <div className="footer-inner">
           <div>
-            <div className="footer-brand">🌸 NOOR COSMETICS</div>
-            <div className="footer-socials" style={{ marginTop: '0.75rem' }}>
-              <a href={`https://www.instagram.com/${INSTAGRAM}`} target="_blank">📸 Instagram</a>
-              <a href={`https://wa.me/${PHONE}`} target="_blank">💬 WhatsApp</a>
+            <div className="footer-brand">NOOR COSMETICS</div>
+            <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '300px' }}>
+              Your curated collection of premium beauty essentials.
+            </p>
+            <div className="footer-socials">
+              <a href={`https://www.instagram.com/${INSTAGRAM}`} target="_blank">Instagram</a>
+              <a href={`https://wa.me/${PHONE}`} target="_blank">WhatsApp</a>
             </div>
           </div>
-          <div><a href="/">Home</a><a href="/products">Shop</a></div>
-          <div>
-            <a href={`https://wa.me/${PHONE}`} target="_blank">+971 54 749 1672</a>
-            <a href={`https://www.instagram.com/${INSTAGRAM}`} target="_blank">@noor_cosmetics53</a>
+          <div className="footer-links-col">
+            <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Quick Links</h4>
+            <a href="/">Home</a>
+            <a href="/products">Catalogue</a>
+          </div>
+          <div className="footer-contact-col">
+            <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Contact Us</h4>
+            <a href={`https://wa.me/${PHONE}`} target="_blank">WhatsApp: +971 54 749 1672</a>
+            <a href={`https://www.instagram.com/${INSTAGRAM}`} target="_blank">Instagram: @noor_cosmetics53</a>
           </div>
         </div>
-        <div className="footer-bottom">© 2026 Noor Cosmetics. All rights reserved.</div>
+        <div className="footer-bottom">© 2026 NOOR COSMETICS. All rights reserved.</div>
       </footer>
     </>
   );

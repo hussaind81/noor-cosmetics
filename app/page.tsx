@@ -51,13 +51,29 @@ export default function Home() {
       </main>
 
       <footer className="lookbook-footer">
-        <h2>Let's Connect</h2>
-        <p>Ready to order or have a question? Reach out to us directly.</p>
-        <div className="lookbook-footer-btns">
-          <a href="https://wa.me/971547491672" target="_blank" className="btn btn-whatsapp-lookbook">Chat on WhatsApp</a>
-          <a href="https://www.instagram.com/noor_cosmetics53" target="_blank" className="btn btn-instagram-lookbook">Follow on Instagram</a>
+        <div className="footer-inner" style={{ textAlign: 'left' }}>
+          <div>
+            <div className="footer-brand">NOOR COSMETICS</div>
+            <p style={{ color: '#666', fontSize: '1rem', marginBottom: '2rem', maxWidth: '400px' }}>
+              Discover our curated collection of beauty essentials. From everyday favorites to special occasion glam, we've got you covered.
+            </p>
+            <div className="footer-socials">
+              <a href="https://wa.me/971547491672" target="_blank">WhatsApp</a>
+              <a href="https://www.instagram.com/noor_cosmetics53" target="_blank">Instagram</a>
+            </div>
+          </div>
+          <div className="footer-links-col">
+            <h4 style={{ marginBottom: '1rem', fontSize: '1.1rem' }}>Navigation</h4>
+            <a href="/">Home</a>
+            <a href="/products">Catalogue</a>
+          </div>
+          <div className="footer-contact-col">
+            <h4 style={{ marginBottom: '1rem', fontSize: '1.1rem' }}>Get in Touch</h4>
+            <a href="https://wa.me/971547491672" target="_blank">+971 54 749 1672</a>
+            <a href="https://www.instagram.com/noor_cosmetics53" target="_blank">@noor_cosmetics53</a>
+          </div>
         </div>
-        <div className="lookbook-footer-bottom">© 2026 NOOR COSMETICS</div>
+        <div className="footer-bottom">© 2026 NOOR COSMETICS. All rights reserved.</div>
       </footer>
     </>
   );
