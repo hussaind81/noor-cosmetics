@@ -2,7 +2,12 @@ export const runtime = 'edge';
 import { NextRequest, NextResponse } from 'next/server';
 
 function getDB(req: NextRequest): any {
-  return (process.env as any).DB || (globalThis as any).DB || null;
+  // Try to get from Cloudflare Pages context
+  const env = (process.env as any);
+  if (env.DB) return env.DB;
+  
+  // Fallback for different Cloudflare environments
+  return (globalThis as any).DB || null;
 }
 
 export async function GET(request: NextRequest) {
