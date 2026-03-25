@@ -1,0 +1,8 @@
+name = "noor-cosmetics"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noor-cosmetics"
+database_id = "019575e2-cdaf-4d92-8982-a66962ab07a0"
