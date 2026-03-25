@@ -124,7 +124,6 @@ export default function ProductsPage() {
         ) : (
           <div className="products-grid">
             {filtered.map(p => {
-              const isWishlisted = wishlist.includes(p.id);
               const discount = p.original_price ? Math.round((1 - p.price / p.original_price) * 100) : 0;
               return (
                 <div key={p.id} className="product-card">
@@ -135,9 +134,6 @@ export default function ProductsPage() {
                     }
                     {p.badge && <div className={`badge-ui badge-${p.badge.toLowerCase()}`} style={{position:'absolute',top:'0.75rem',left:'0.75rem'}}>{p.badge}</div>}
                     {discount > 0 && <div className="discount-pill" style={{position:'absolute',top:'0.75rem',right:'0.75rem'}}>-{discount}%</div>}
-                    <button className={`wishlist-btn ${isWishlisted ? 'active' : ''}`} onClick={e => { e.stopPropagation(); toggleWishlist(p.id); }}>
-                      {isWishlisted ? '❤️' : '🤍'}
-                    </button>
                   </div>
                   <div className="product-info">
                     <div className="product-category">{p.category}</div>
@@ -229,18 +225,9 @@ export default function ProductsPage() {
 
               {/* ACTIONS */}
               <div style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
-                <div style={{display:'grid',gridTemplateColumns:'1fr auto',gap:'1rem'}}>
-                  <button className="btn btn-primary" style={{padding:'1rem',borderRadius:'12px',fontSize:'1.1rem'}} onClick={() => { addToCart(selected, selectedShade); closeProduct(); }}>
-                    Add to Bag 🛍️
-                  </button>
-                  <button className={`wishlist-btn ${wishlist.includes(selected.id) ? 'active' : ''}`} onClick={() => toggleWishlist(selected.id)} style={{position:'static',width:'54px',height:'54px',fontSize:'1.5rem'}}>
-                    {wishlist.includes(selected.id) ? '❤️' : '🤍'}
-                  </button>
-                </div>
-                
-                <button className="btn btn-outline" style={{padding:'1rem',borderRadius:'12px'}} onClick={() => setShowOrderForm(true)}>
-                  Quick Buy via WhatsApp →
-                </button>
+                <a href={getWhatsAppOrder(selected, selectedShade)} target="_blank" className="btn btn-primary" style={{padding:'1rem',borderRadius:'12px',fontSize:'1.1rem', textAlign:'center'}}>
+                  Order on WhatsApp
+                </a>
               </div>
 
               {/* QUICK ORDER FORM */}
