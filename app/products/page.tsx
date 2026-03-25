@@ -69,15 +69,7 @@ export default function ProductsPage() {
 
   const closeProduct = () => {
     setSelected(null);
-    document.body.style.overflow = '';
-  };
-
-  const getBadgeStyle = (badge: string) => {
-    if (badge === 'Sale') return { background: '#dc2626', color: 'white' };
-    if (badge === 'New') return { background: '#16a34a', color: 'white' };
-    if (badge === 'Bestseller') return { background: '#d4af37', color: 'white' };
-    if (badge === 'Featured') return { background: '#7c3aed', color: 'white' };
-    return { background: '#e11d48', color: 'white' };
+    document.body.style.overflow = 'auto';
   };
 
   return (
@@ -91,8 +83,6 @@ export default function ProductsPage() {
         </ul>
       </nav>
 
-
-
       <div className="delivery-banner">
         🚚 Free delivery AED 150+ &nbsp;|&nbsp; ⚡ 24hr delivery &nbsp;|&nbsp; 🎁 Free gift &nbsp;|&nbsp; 💰 Cash on delivery &nbsp;|&nbsp; 🏦 Bank transfer
       </div>
@@ -101,19 +91,25 @@ export default function ProductsPage() {
         <h1 className="section-title">Our Collection</h1>
         <p className="section-subtitle">{filtered.length} of {all.length} products</p>
 
-        <div className="cat-pills">
-          {CATS.map(c => (
-            <button key={c} className={`cat-pill ${cat === c ? 'active' : ''}`} onClick={() => setCat(c)}>{c}</button>
-          ))}
-        </div>
-
-        <div className="search-sort-bar">
-          <input className="search-input" placeholder="🔍  Search products..." value={search} onChange={e => setSearch(e.target.value)} />
-          <select className="sort-select" value={sort} onChange={e => setSort(e.target.value)}>
-            <option value="newest">Newest First</option>
+        {/* FILTERS */}
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="search-input"
+          />
+          <div className="category-pills">
+            {CATS.map(c => (
+              <button key={c} onClick={() => setCat(c)} className={`cat-pill ${cat === c ? 'active' : ''}`}>{c}</button>
+            ))}
+          </div>
+          <select value={sort} onChange={e => setSort(e.target.value)} className="sort-select">
+            <option value="newest">Newest</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
-            <option value="name">Name A-Z</option>
+            <option value="name">Name</option>
           </select>
         </div>
 
@@ -223,24 +219,7 @@ export default function ProductsPage() {
                 </div>
               )}
 
-              {/* ACTIONS */}
-              <div style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
-                <a href={getWhatsAppOrder(selected, selectedShade)} target="_blank" className="btn btn-primary" style={{padding:'1rem',borderRadius:'12px',fontSize:'1.1rem', textAlign:'center'}}>
-                  Order on WhatsApp
-                </a>
-              </div>
 
-              {/* QUICK ORDER FORM */}
-              {showOrderForm && (
-                <div className="order-form" style={{marginTop:'1.5rem'}}>
-                  <h4>🚀 Quick Checkout</h4>
-                  <input placeholder="Your Name" value={orderName} onChange={e => setOrderName(e.target.value)} className="order-input" />
-                  <input placeholder="UAE Delivery Address" value={orderAddress} onChange={e => setOrderAddress(e.target.value)} className="order-input" />
-                  <a href={getWhatsAppOrder([{product:selected, shade:selectedShade || undefined, quantity:1}], orderName, orderAddress)} target="_blank" className="btn btn-primary" style={{textAlign:'center',borderRadius:'10px'}}>
-                    Confirm Order
-                  </a>
-                </div>
-              )}
 
               <div className="modal-trust" style={{marginTop:'2rem',borderTop:'1px solid #eee',paddingTop:'1.5rem'}}>
                 <span>🚚 Free delivery AED 150+</span>
