@@ -30,9 +30,14 @@ export async function GET(request: NextRequest) {
     
     // For list view, we might want to include the primary image and shades count
     const enrichedProducts = await Promise.all(products.map(async (p: any) => {
-      const images = await db.prepare('SELECT * FROM product_images WHERE product_id=?').bind(p.id).all();
-      const shades = await db.prepare('SELECT * FROM product_shades WHERE product_id=?').bind(p.id).all();
-      return { ...p, images: images.results, shades_list: shades.results };
+      try {
+        const images = await db.prepare('SELECT * FROM product_images WHERE product_id=?').bind(p.id).all();
+        const shades = await db.prepare('SELECT * FROM product_shades WHERE product_id=?').bind(p.id).all();
+        return { ...p, images: images.results || [], shades_list: shades.results || [] };
+      } catch (e) {
+        // Fallback if new tables don't exist yet
+        return { ...p, images: [], shades_list: [] };
+      }
     }));
 
     return NextResponse.json({ success: true, products: enrichedProducts, source: 'database' });
